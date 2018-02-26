@@ -10,5 +10,18 @@ class Module extends \yii\base\Module
         if (\Yii::$app instanceof \yii\console\Application) {
             $this->controllerNamespace = 'dimichspb\yii\mailqueue\commands';
         }
+        $this->registerTranslations();
+    }
+
+    public function registerTranslations()
+    {
+        \Yii::$app->i18n->translations['mail-queue*'] = [
+            'class' => 'yii\i18n\PhpMessageSource',
+            'sourceLanguage' => 'en-US',
+            'basePath' => __DIR__ . '/messages',
+            'fileMap' => [
+                'mail-queue' => 'messages.php',
+            ],
+        ];
     }
 }
