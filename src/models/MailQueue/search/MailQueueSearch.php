@@ -21,7 +21,7 @@ class MailQueueSearch extends Model
     public function rules()
     {
         return [
-            [['created_at_from', 'created_at_till', 'send_at_from', 'send_at_till'], 'datetime'],
+            [['created_at_from', 'created_at_till', 'send_at_from', 'send_at_till'], 'safe'],
             [['attempts_from', 'attempts_till'], 'integer'],
             [['id'], 'integer'],
             [['message', ], 'string'],

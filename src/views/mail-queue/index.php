@@ -1,5 +1,6 @@
 <?php
 
+use dimichspb\yii\mailqueue\models\MailQueue\MailQueue;
 use yii\grid\GridView;
 use yii\helpers\Html;
 
@@ -25,7 +26,12 @@ $this->params['breadcrumbs'][] = $this->title;
                     'id',
                     'created_at:date',
                     'send_at:date',
-                    'message',
+                    [
+                        'attribute' => 'message',
+                        'value' => function (MailQueue $model) {
+                            return \yii\helpers\Json::encode($model->getMessage());
+                        },
+                    ],
                     'attempts',
                     'statuses',
                     ['class' => 'yii\grid\ActionColumn'],
