@@ -29,7 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     [
                         'attribute' => 'message',
                         'value' => function (MailQueue $model) {
-                            return $model->getMessage()->toString();
+                            return $model->getMessage()->getSubject();
                         },
                     ],
                     'attempts',
