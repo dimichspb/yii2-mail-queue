@@ -29,7 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     [
                         'attribute' => 'message',
                         'value' => function (MailQueue $model) {
-                            return \yii\helpers\Json::encode($model->getMessage());
+                            return $model->getMessage()->toString();
                         },
                     ],
                     'attempts',

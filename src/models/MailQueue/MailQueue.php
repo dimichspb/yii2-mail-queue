@@ -78,6 +78,9 @@ class MailQueue extends ActiveRecord
     }
 
 
+    /**
+     * @return MessageInterface
+     */
     public function getMessage()
     {
         return unserialize($this->message_data);
