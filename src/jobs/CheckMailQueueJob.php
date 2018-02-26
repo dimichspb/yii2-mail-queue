@@ -37,6 +37,11 @@ class CheckMailQueueJob extends BaseObject implements JobInterface
         $this->recordEvent(new InitializedCheckMailQueueJobEvent());
     }
 
+    /**
+     * @param Queue $queue
+     * @return MailQueue[]
+     * @throws \Exception
+     */
     public function execute($queue)
     {
         $this->recordEvent(new BeforeExecuteCheckMailQueueJobEvent());

@@ -83,6 +83,17 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
         return true;
     }
 
+    protected function getMailDirectoryFileCount()
+    {
+        $i = 0;
+        foreach ($this->getMailDirectoryContent() as $fileInfo) {
+            if (!$fileInfo->isDot()) {
+                $i++;
+            }
+        }
+        return $i;
+    }
+
     protected function isQueueClear()
     {
         return

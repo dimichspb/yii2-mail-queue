@@ -359,6 +359,7 @@ class Mailer extends BaseMailer
         if (!$model = $modelClass::findOne(['id' => $id])) {
             throw new ModelNotFoundException($this->modelClass . ' with ID ' . $id . ' not found!');
         }
+        return $model;
     }
 
     public function pushJob()

@@ -114,6 +114,12 @@ class MailQueue extends ActiveRecord
     public function updateLastAttempt($value)
     {
         $attempt = $this->getLastAttempt();
+        if (!$attempt) {
+            $attempt = new Attempt($value);
+            $this->addAttempt($attempt);
+        } else {
+            $attempt->setValue($value);
+        }
         switch ($value) {
             case Attempt::ERROR:
                 $this->addStatus(new Status(Status::ERROR));
@@ -124,7 +130,6 @@ class MailQueue extends ActiveRecord
             default:
                 $this->addStatus(new Status(Status::PROCESS));
         }
-        $attempt->setValue($value);
     }
 
     public function setId(Id $id)
