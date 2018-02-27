@@ -7,6 +7,7 @@ use dimichspb\yii\mailqueue\models\MailQueue\events\AttemptAddedEvent;
 use dimichspb\yii\mailqueue\models\MailQueue\events\CreatedEvent;
 use dimichspb\yii\mailqueue\models\MailQueue\events\MessageUpdatedEvent;
 use dimichspb\yii\mailqueue\models\MailQueue\events\SendAtUpdatedEvent;
+use dimichspb\yii\mailqueue\models\MailQueue\events\SentAtUpdatedEvent;
 use dimichspb\yii\mailqueue\models\MailQueue\events\StatusAddedEvent;
 use yii\db\ActiveRecord;
 use yii\helpers\Json;
@@ -21,6 +22,7 @@ use yii\mail\MessageInterface;
  * @property string $message_data
  * @property CreatedAt $created_at
  * @property SendAt $send_at
+ * @property SentAt $sent_at
  * @property MessageInterface $message
  * @property Status[] $statuses
  */
@@ -31,6 +33,7 @@ class MailQueue extends ActiveRecord
     private $id;
     private $created_at;
     private $send_at;
+    private $sent_at;
     private $attempts = [];
     private $message_data;
     private $statuses = [];
@@ -46,6 +49,7 @@ class MailQueue extends ActiveRecord
         $this->id = new Id();
         $this->created_at = new CreatedAt();
         $this->send_at = $sendAt?: new SendAt();
+        $this->sent_at = null;
         $this->setMessage($message);
         $this->addStatus(new Status(Status::NEW));
 
@@ -66,6 +70,20 @@ class MailQueue extends ActiveRecord
     public function getSendAt()
     {
         return $this->send_at;
+    }
+
+    /**
+     * @param SentAt $sentAt
+     */
+    public function setSentAt(SentAt $sentAt)
+    {
+        $this->sent_at = $sentAt;
+        $this->recordEvent(new SentAtUpdatedEvent());
+    }
+
+    public function getSentAt()
+    {
+        return $this->sent_at;
     }
 
     /**
@@ -131,6 +149,7 @@ class MailQueue extends ActiveRecord
                 $this->addStatus(new Status(Status::ERROR));
                 break;
             case Attempt::DONE:
+                $this->setSentAt(new SentAt());
                 $this->addStatus(new Status(Status::DONE));
                 break;
             default:
@@ -172,14 +191,17 @@ class MailQueue extends ActiveRecord
         $this->send_at = new SendAt(
             $this->getAttribute('send_at')
         );
+        $this->sent_at = new SentAt(
+            $this->getAttribute('sent_at')
+        );
 
         $this->message_data = $this->getAttribute('message_data');
 
         $this->attempts = array_map(function ($row) {
-            return new Attempt([
+            return new Attempt(
                 $row['value'],
                 new CreatedAt($row['created_at'])
-            ]);
+            );
         }, Json::decode($this->getAttribute('attempts')));
 
         $this->statuses = array_map(function ($row) {
@@ -197,6 +219,7 @@ class MailQueue extends ActiveRecord
         $this->setAttribute('id', $this->id->getValue());
         $this->setAttribute('created_at', $this->created_at->getValue());
         $this->setAttribute('send_at', $this->send_at->getValue());
+        $this->setAttribute('sent_at', $this->sent_at? $this->sent_at->getValue(): null);
         $this->setAttribute('message_data', $this->message_data);
         $this->setAttribute('attempts', Json::encode(array_map(function (Attempt $attempt) {
             return [

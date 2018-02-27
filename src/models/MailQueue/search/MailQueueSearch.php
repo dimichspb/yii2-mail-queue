@@ -13,6 +13,8 @@ class MailQueueSearch extends Model
     public $created_at_till;
     public $send_at_from;
     public $send_at_till;
+    public $sent_at_from;
+    public $sent_at_till;
     public $attempts_from;
     public $attempts_till;
     public $statuses;
@@ -21,7 +23,7 @@ class MailQueueSearch extends Model
     public function rules()
     {
         return [
-            [['created_at_from', 'created_at_till', 'send_at_from', 'send_at_till'], 'safe'],
+            [['created_at_from', 'created_at_till', 'send_at_from', 'send_at_till', 'sent_at_from', 'sent_at_till'], 'safe'],
             [['attempts_from', 'attempts_till'], 'integer'],
             [['id'], 'integer'],
             [['message', ], 'string'],
@@ -71,6 +73,13 @@ class MailQueueSearch extends Model
         ]);
         $query->andFilterWhere([
             '<=', 'send_at', $this->send_at_till,
+        ]);
+
+        $query->andFilterWhere([
+            '>=', 'sent_at', $this->sent_at_from,
+        ]);
+        $query->andFilterWhere([
+            '<=', 'sent_at', $this->sent_at_till,
         ]);
 
         $query->andFilterWhere([
