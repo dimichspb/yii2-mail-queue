@@ -51,4 +51,10 @@ or use yii2 queue listener
 yii queue/listen
 ```
 
-4. Have fun
+4. Testing
+
+```
+phpunit
+```
+
+5. Have fun
