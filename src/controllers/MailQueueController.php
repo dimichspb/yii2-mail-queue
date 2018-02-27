@@ -20,7 +20,7 @@ class MailQueueController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['index', 'view', 'update', 'delete', 'create'],
+                        'actions' => ['index', 'view', 'delete',],
                         'allow' => true,
                         'roles' => ['?'],
                     ],

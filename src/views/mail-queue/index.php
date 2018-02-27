@@ -24,8 +24,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'columns' => [
                     ['class' => 'yii\grid\SerialColumn'],
                     'id',
-                    'created_at:date',
-                    'send_at:date',
+                    'created_at:datetime',
+                    'send_at:datetime',
                     [
                         'attribute' => 'message',
                         'value' => function (MailQueue $model) {
@@ -38,6 +38,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         'class' => 'yii\grid\ActionColumn',
                         'template' => '{view} {delete}'
                     ],
+                    'sent_at:datetime'
                 ],
             ]); ?>
         </div>

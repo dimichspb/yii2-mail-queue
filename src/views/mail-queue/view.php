@@ -31,6 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     ],
                     'attempts',
                     'statuses',
+                    'sent_at:datetime'
                 ],
             ]) ?>
         </div>
