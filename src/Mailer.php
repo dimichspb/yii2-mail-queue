@@ -275,7 +275,7 @@ class Mailer extends BaseMailer
     {
         $successCount = 0;
         foreach ($messages as $message) {
-            if ($this->sendLater($message, $dateTime)) {
+            if ($this->sendAt($message, $dateTime)) {
                 $successCount++;
             }
         }
@@ -335,6 +335,7 @@ class Mailer extends BaseMailer
         $alreadySentCount = $modelClass::find()
             ->select('id')
             ->where(['>=', 'send_at', $now->format('Y-m-d H:i:s')])
+            ->andWhere(['NOT', ['sent_at' => null]])
             ->orderBy(['created_at' => SORT_ASC])
             ->count();
 
@@ -342,6 +343,7 @@ class Mailer extends BaseMailer
 
         return $modelClass::find()
             ->where(['<=', 'send_at', (new SendAt())->getValue()])
+            ->andWhere(['sent_at' => null])
             ->orderBy(['created_at' => SORT_ASC])
             ->limit($limit)
             ->all();
