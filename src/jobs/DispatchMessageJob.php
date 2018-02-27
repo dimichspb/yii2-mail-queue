@@ -50,7 +50,7 @@ class DispatchMessageJob extends BaseObject implements RetryableJobInterface
     {
         $this->recordEvent(new BeforeExecuteDispatchMessageJobEvent());
 
-        $this->model->updateLastAttempt(Attempt::NEW);
+        $this->model->addAttempt(new Attempt(Attempt::NEW));
 
         $message = $this->model->getMessage();
 

@@ -95,6 +95,7 @@ class MailQueue extends ActiveRecord
     public function addStatus(Status $status)
     {
         $this->statuses[] = $status;
+        $this->save();
         $this->recordEvent(new StatusAddedEvent());
     }
 
@@ -106,6 +107,7 @@ class MailQueue extends ActiveRecord
     public function addAttempt(Attempt $attempt)
     {
         $this->attempts[] = $attempt;
+        $this->save();
         $this->recordEvent(new AttemptAddedEvent());
     }
 
@@ -122,6 +124,7 @@ class MailQueue extends ActiveRecord
             $this->addAttempt($attempt);
         } else {
             $attempt->setValue($value);
+            $this->save();
         }
         switch ($value) {
             case Attempt::ERROR:

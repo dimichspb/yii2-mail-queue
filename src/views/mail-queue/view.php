@@ -5,8 +5,8 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model \dimichspb\yii\mailqueue\models\MailQueue\MailQueue */
 
-$this->title = $model->getId();
-$this->params['breadcrumbs'][] = ['label' => \Yii::t('mail-queue', 'Mail Queue');, 'url' => ['index']];
+$this->title = \Yii::t('mail-queue', 'Mail Queue') . ' - ' . $model->getId()->getValue();
+$this->params['breadcrumbs'][] = ['label' => \Yii::t('mail-queue', 'Mail Queue'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="event-view">
@@ -25,7 +25,10 @@ $this->params['breadcrumbs'][] = $this->title;
                     'id',
                     'created_at:datetime',
                     'send_at:datetime',
-                    'message',
+                    [
+                        'attribute' => 'message',
+                        'value' => $model->getMessage()->toString(),
+                    ],
                     'attempts',
                     'statuses',
                 ],
