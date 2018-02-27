@@ -53,6 +53,7 @@ class DispatchMessageJob extends BaseObject implements RetryableJobInterface
         $this->model->updateLastAttempt(Attempt::NEW);
 
         $message = $this->model->getMessage();
+
         try {
             $this->model->updateLastAttempt(Attempt::PROCESS);
             $result = $this->mailer->getMailer()->send($message);
