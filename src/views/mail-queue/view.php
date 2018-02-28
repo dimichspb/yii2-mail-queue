@@ -11,13 +11,6 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="event-view">
     <div class="box">
-        <div class="box-header">
-            <div class="row">
-                <div class="col-md-8">
-                    <h1><?= Html::encode($this->title) ?></h1>
-                </div>
-            </div>
-        </div>
         <div class="box-body">
             <?= DetailView::widget([
                 'model' => $model,

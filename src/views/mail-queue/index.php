@@ -13,9 +13,6 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="blog-index">
     <div class="box">
-        <div class="box-header">
-            <h1><?= Html::encode($this->title) ?></h1>
-        </div>
         <div class="box-body">
             <?= GridView::widget([
                 'dataProvider' => $dataProvider,
