@@ -172,9 +172,7 @@ class MailQueue extends ActiveRecord
      */
     public static function tableName()
     {
-        $mailer = \Yii::$app->mailer;
-
-        return ($mailer && isset($mailer->tableName))? $mailer->tableName: '{{%mail_queue%}}';
+        return '{{%mail_queue%}}';
     }
 
     /**
