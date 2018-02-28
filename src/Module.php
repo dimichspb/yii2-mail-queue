@@ -6,8 +6,8 @@ class Module extends \yii\base\Module
     public $prefix = 'mailqueue';
 
     public $routes = [
-        'mailqueue/index' => 'mailqueue/mail-queue/index',
-        'mailqueue/view' => 'mailqueue/mail-queue/view',
+        'index' => 'mail-queue/index',
+        'view' => 'mail-queue/view',
     ];
 
     public function init()
