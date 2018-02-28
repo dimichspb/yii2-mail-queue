@@ -6,6 +6,7 @@ class Module extends \yii\base\Module
     public $prefix = 'mailqueue';
 
     public $routes = [
+        '/' => 'mail-queue/index',
         'index' => 'mail-queue/index',
         'view' => 'mail-queue/view',
     ];
