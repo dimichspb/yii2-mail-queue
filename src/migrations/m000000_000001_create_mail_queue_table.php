@@ -15,7 +15,7 @@ class m000000_000001_create_mail_queue_table extends Migration
     public function up()
     {
         $this->createTable($this->tableName, [
-            'id' => 'char(36) primary key',
+            'id' => 'char(36)',
             'created_at' => $this->dateTime(),
             'send_at' => $this->dateTime(),
             'attempts' => $this->text(),
