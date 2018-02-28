@@ -3,6 +3,13 @@ namespace dimichspb\yii\mailqueue;
 
 class Module extends \yii\base\Module
 {
+    public $prefix = 'mailqueue';
+
+    public $routes = [
+        'mailqueue/index' => 'mailqueue/mail-queue/index',
+        'mailqueue/view' => 'mailqueue/mail-queue/view',
+    ];
+
     public function init()
     {
         parent::init();
