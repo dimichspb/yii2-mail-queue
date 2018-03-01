@@ -193,7 +193,9 @@ class MailQueue extends ActiveRecord
             $this->getAttribute('sent_at')
         );
 
-        $this->message_data = $this->getAttribute('message_data');
+        $message_data = $this->getAttribute('message_data');
+        $this->message_data = is_resource($message_data)? stream_get_contents($message_data): $message_data;
+
 
         $this->attempts = array_map(function ($row) {
             return new Attempt(
