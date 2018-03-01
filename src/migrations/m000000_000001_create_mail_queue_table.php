@@ -1,5 +1,4 @@
 <?php
-namespace dimichspb\yii\mailqueue\migrations;
 
 use yii\db\Migration;
 
@@ -19,7 +18,7 @@ class m000000_000001_create_mail_queue_table extends Migration
             'created_at' => $this->dateTime(),
             'send_at' => $this->dateTime(),
             'attempts' => $this->text(),
-            'message_data' => $this->binary(),
+            'message_data' => $this->text(),
             'statuses' => $this->text(),
         ]);
         if ($this->db->driverName !== 'sqlite') {

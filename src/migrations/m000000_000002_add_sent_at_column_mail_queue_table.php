@@ -1,5 +1,4 @@
 <?php
-namespace dimichspb\yii\mailqueue\migrations;
 
 use yii\db\Migration;
 
