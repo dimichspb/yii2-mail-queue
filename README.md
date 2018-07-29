@@ -5,7 +5,7 @@ Yii2 Module to put mails into the queue. Module replaces ```mailer``` component.
 1. Installation
 
 ```
-composer require dimichspb\yii2-mail-queue
+composer require dimichspb/yii2-mail-queue
 ```
 
 2. Configuration
